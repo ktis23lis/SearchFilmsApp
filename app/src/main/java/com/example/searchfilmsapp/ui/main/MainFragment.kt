@@ -6,66 +6,76 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.RecyclerView
 import com.example.searchfilmsapp.R
 import com.example.searchfilmsapp.databinding.MainFragmentBinding
 import com.example.searchfilmsapp.adapter.CategoriesAdapter
+import com.example.searchfilmsapp.adapter.FilmsAdapter
+import com.example.searchfilmsapp.databinding.ItemListsBinding
 import com.example.searchfilmsapp.model.AppState
+import com.example.searchfilmsapp.model.entities.Film
+import com.example.searchfilmsapp.model.interfaces.OnItemViewClickListener
+import com.example.searchfilmsapp.ui.details.FilmFragment
 import com.google.android.material.snackbar.Snackbar
 
 class MainFragment : Fragment() {
-    private lateinit var recyclerView: RecyclerView
+
     private lateinit var _binding: MainFragmentBinding
-//    private  var data : Array <String> = resources.getStringArray(R.array.category)
-
-
     private val binding get() = _binding!!
+
     companion object {
         fun newInstance() = MainFragment()
     }
 
     private lateinit var viewModel: MainViewModel
+    //
     private val adapter = CategoriesAdapter()
+    private var myadapter : FilmsAdapter?= null
+    private lateinit var mybinding: ItemListsBinding
+
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         _binding = MainFragmentBinding.inflate(inflater, container, false)
+        mybinding = ItemListsBinding.inflate(inflater, container, false)
         return binding.root
-//        val view = binding.root
-//        return view
-//        initRecyclerView()
-//        return inflater.inflate(R.layout.main_fragment, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        mybinding.recyclerFilmsViewList.adapter = myadapter
         binding.recyclerViewList.adapter = adapter
         viewModel = ViewModelProvider(this).get(MainViewModel :: class.java)
         viewModel.getLiveData().observe(viewLifecycleOwner, Observer { renderData(it) })
         viewModel.getFilmsFromLocalStorage()
-
     }
-//
-//    override fun onActivityCreated(savedInstanceState: Bundle?) {
-//        super.onActivityCreated(savedInstanceState)
-//        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-////        val observer = Observer<Any>{
-////            renderData(it)
-//        viewModel.getLiveData().observe(viewLifecycleOwner, Observer { renderData(it as AppState) })
-//        viewModel.getFilm()
-////    }
-//        viewModel.getData().observe(viewLifecycleOwner, observer)
-//    }
+
 
     private fun renderData (appState : AppState){
         when(appState){
             is AppState.Success -> {
-//                val filmsData = appState.filmsData
                 _binding.loadingLayout.visibility  = View.GONE
+                //блок ниже не работает, при нажатии ничего не происходит, код сюда не попадает почему не могу понять
+                //если я делаю анналогично, только с адаптером CategoriesAdapter протсходит переход на другой фрагмент,
+                //только после нажатия на категорию, а мне нужно на карточку FilmsAdapter
+                myadapter = FilmsAdapter(object : OnItemViewClickListener{
+                    override fun onItemViewClick(film: Film) {
+                        val manager = activity?.supportFragmentManager
+                        manager?.let { manager ->
+                            val bundle = Bundle().apply {
+                                putParcelable(FilmFragment.BUNDLE_EXTRA, film)
+                            }
+                            manager.beginTransaction()
+                                .add(R.id.container, FilmFragment.newInstance(bundle))
+                                .addToBackStack("")
+                                .commitAllowingStateLoss()
+                        }
+                    }
+                }).apply { setListFilm(appState.filmsData)
+                }
                 adapter.setFilm(appState.filmsData)
-//            initRecyclerView(recyclerView, data)
-//                setData(filmsData)
             }
             is AppState.Loading -> {
                 _binding.loadingLayout.visibility = View.VISIBLE
@@ -83,33 +93,6 @@ class MainFragment : Fragment() {
 
 
 
-//    private fun setData(filmData: Film){
-//
-//
-//    }
-//    private fun initRecyclerView(recyclerView: RecyclerView, data: Array<String>){
-////        val categoryList = generateCategoryLists(10)
-//        recyclerView.adapter = CategoriesAdapter(data)
-//        recyclerView.layoutManager = LinearLayoutManager(context)
-//        recyclerView.setHasFixedSize(true)
 
+}
 
-    }
-
-//    private fun generateCategoryLists(size : Int): List<Categories> {
-//        val list = ArrayList<Categories>()
-//        for (i in 0 until size){
-//            val item = Categories("Item $i")
-//            list +=item
-//        }
-//        return list
-//    }
-
-
-
-
-
-
-
-//
-//}
