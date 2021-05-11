@@ -15,10 +15,7 @@ data class Film(
 
 fun getDefaultCategories() = Categories("demoText")
 
-fun getHardCodeFilms(): List<Film> {
-    return listOf(
-            Film(Categories("Horror"), R.drawable.film_vdova,
-                " Vdova", 2020, "bala-bla-bla"),
+fun getHardCodeFilms() = listOf(
             Film(Categories("Comedy"), R.drawable.callcenter,
                 " Callcenter", 2020, "bala-bla-bla"),
             Film(Categories("Dram"), R.drawable.claustrofob,
@@ -34,6 +31,6 @@ fun getHardCodeFilms(): List<Film> {
             Film(Categories("Animation"), R.drawable.raia,
                 "Raia", 2020,"bala-bla-bla")
     )
-}
+
 
 

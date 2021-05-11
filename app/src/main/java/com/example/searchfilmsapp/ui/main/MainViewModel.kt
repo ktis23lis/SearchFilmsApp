@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.example.searchfilmsapp.model.AppState
 import com.example.searchfilmsapp.model.Repository
 import com.example.searchfilmsapp.model.RepositoryImpl
+import com.example.searchfilmsapp.strings_iteractor.StringsInteractor
 import java.lang.Thread.sleep
 
 class MainViewModel(
@@ -12,6 +13,8 @@ class MainViewModel(
         private val repositoryImpl: Repository = RepositoryImpl()
 ) :
     ViewModel() {
+
+    lateinit var stringsInteractor: StringsInteractor
 
     fun getFilm()= getDataFromLocalSource()
 

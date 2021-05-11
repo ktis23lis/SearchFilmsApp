@@ -4,11 +4,6 @@ import com.example.searchfilmsapp.model.entities.Film
 import com.example.searchfilmsapp.model.entities.getHardCodeFilms
 
 class RepositoryImpl : Repository {
-    override fun getFilmsFromServer(): Film {
-        return Film()
-    }
-
-    override fun getFilmsFromLocalStorage(): List<Film> {
-        return getHardCodeFilms()
-    }
+    override fun getFilmsFromServer() = Film()
+    override fun getFilmsFromLocalStorage() = getHardCodeFilms()
 }

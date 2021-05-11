@@ -19,9 +19,9 @@
                 android:id="@+id/categoriesTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="30sp"
+                android:textSize="@dimen/Item_Lists_TV_categories_textSize"
                 android:textStyle="bold"
-                tools:text="Categories"/>
+                tools:text="@string/Item_lists_TV_categories"/>
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
