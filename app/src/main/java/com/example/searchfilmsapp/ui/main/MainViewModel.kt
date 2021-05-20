@@ -8,7 +8,7 @@ import com.example.searchfilmsapp.strings_iteractor.StringsInteractor
 import java.lang.Thread.sleep
 
 class MainViewModel(private val liveDataToObserve: MediatorLiveData<AppState> = MediatorLiveData(),
-//        private val repositoryImpl: Repository = RepositoryImpl()
+        private val repositoryImpl: Repository = RepositoryImpl()
 ) :
     ViewModel(), LifecycleObserver {
     private val repository: Repository = RepositoryImpl()
@@ -36,13 +36,21 @@ class MainViewModel(private val liveDataToObserve: MediatorLiveData<AppState> = 
         Thread{
             sleep(1000)
             liveDataToObserve.postValue(AppState.Success(
-                repository.getFilmsFromLocalStorage()))
+                repository.getCategoriesFromLocal()))
         }.start()
     }
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     private fun onViewStart() {
         lifeCycleLiveData.value = stringsInteractor.startStr
     }
+//
+//    fun loadData(categories : String) {
+//        liveDataToObserve.value = AppState.Loading
+//        Thread {
+//            val data = repository.getFilmsFromServer(categories)
+//            liveDataToObserve.postValue(AppState.Success(listOf(data)))
+//        }.start()
+//    }
 
 
  }

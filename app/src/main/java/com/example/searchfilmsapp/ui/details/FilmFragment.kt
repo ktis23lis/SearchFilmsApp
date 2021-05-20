@@ -28,9 +28,6 @@ import java.util.stream.Collectors
 class FilmFragment : Fragment() {
     private lateinit var binding: FilmFragmentBinding
 
-    private val viewModel: FilmsViewModel by lazy {
-     ViewModelProvider(this).get(FilmsViewModel::class.java)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,41 +37,18 @@ class FilmFragment : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?): Unit = with(binding) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?): Unit =
+            with(binding) {
         super.onViewCreated(view, savedInstanceState)
-        val film = arguments?. getParcelable<Film>(BUNDLE_EXTRA)
-        film?.let {
-            filmCategories.text = it.categories.division
-
-        viewModel.liveDataToObserve.observe(this@FilmFragment, {appState ->
-            when(appState){
-                is AppState.Error ->{
-                    loadingLayout.visibility = View.GONE
-                }
-                AppState.Loading -> loadingLayout.visibility = View.VISIBLE
-                is AppState.Success->{
-                    loadingLayout.visibility = View.GONE
-//                    if (film != null) {
-//                        filmImage.setImageResource(film.image)
-//                    }
-                    filmName.text = appState.filmsData[0].name?.toString()
-                    filmEar.text = appState.filmsData[0].date?.toString()
-                    filmDescription.text = appState.filmsData[0].description?.toString()
-                }
+        arguments?.getParcelable<Film>(BUNDLE_EXTRA)?.let { film ->
+            film.categories.also { categories ->
+                filmCategories.text = categories.division
             }
-        })
-        viewModel.loadData(it.categories.division)
+            filmImage.setImageResource(film.image)
+            filmName.text = film.name
+            filmEar.text = film.date.toString()
+            filmDescription.text = film.description
 
-
-//        arguments?.getParcelable<Film>(BUNDLE_EXTRA)?.let { film ->
-//            film.categories.also { categories ->
-//                filmCategories.text = categories.division
-//            }
-//            filmImage.setImageResource(film.image)
-//            filmName.text = film.name
-//            filmEar.text = film.date.toString()
-//            filmDescription.text = film.description
-//
                 }
     }
 
@@ -87,17 +61,6 @@ class FilmFragment : Fragment() {
         }
     }
 
-//    private fun displayFilm(filmsDTO: FilmsDTO){
-//        with(binding){
-//            mainView.visibility = View.VISIBLE
-//            loadingLayout.visibility = View.GONE
-//            val category = filmsBundle.categories
-//        }
-//        filmImage.setImageResource(filmsBundle.image)
-//        filmName.text = filmsDTO.fact?.name
-//        filmEar.text = filmsDTO.fact?.date.toString()
-//        filmDescription.text = filmsDTO.fact.description
-//    }
 
 
 

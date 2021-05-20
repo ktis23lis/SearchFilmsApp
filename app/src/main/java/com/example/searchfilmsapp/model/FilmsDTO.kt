@@ -1,5 +1,7 @@
 package com.example.searchfilmsapp.model
 
 data class FilmsDTO(
-    val results: FactDTO?
+    val id: FactDTO?
+//    val results : List<FactDTO>
+
 )

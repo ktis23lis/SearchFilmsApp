@@ -9,24 +9,38 @@ data class Film(
     val categories: Categories = getDefaultCategories(),
     val image: Int = R.drawable.film_vdova,
     val name: String? = "Some text",
-    val date: Int? = 2020,
+    val date: String? = "202",
     val description : String? = "Bla-bla"
 ): Parcelable
 
 fun getDefaultCategories() = Categories("demoText")
 
-fun getHardCodeFilms() = listOf(
-            Film(Categories("popular"), R.drawable.callcenter,
-                " Callcenter", 2020, "bala-bla-bla"),
-            Film(Categories("top_rated"), R.drawable.claustrofob,
-                " Claystrofob", 2020, "bala-bla-bla"),
-            Film(Categories("now_playing"), R.drawable.hishnie_ptici,
-                "Hishnie ptici", 2020, "bala-bla-bla"),
-            Film(Categories("latest"), R.drawable.hodyachiy_zamok,
-                "Hodyachiy_zamok", 2020,"bala-bla-bla"),
-            Film(Categories("upcoming"), R.drawable.jumanji,
-                "Jumanji", 2020, "bala-bla-bla")
+fun getHardCodeHorror() = mutableListOf(
+            Film(Categories("Horror"), R.drawable.callcenter,
+                " Callcenter", "2020", "bala-bla-bla"),
+            Film(Categories("Horror"), R.drawable.claustrofob,
+                " Claystrofob", "2020", "bala-bla-bla"),
+             Film(Categories("Horror"), R.drawable.pobeg,
+                " Pobeg", "2020", "bala-bla-bla"),
+                Film(Categories("Horror"), R.drawable.claustrofob,
+                " Claystrofob", "2020", "bala-bla-bla"),
+
+
     )
+
+fun getHardCodeDram() = mutableListOf(
+        Film(Categories("Dram"), R.drawable.raia,
+                " Raia", "2020", "bala-bla-bla"),
+        Film(Categories("Dram"), R.drawable.jumanji,
+                " Jumanji", "2020", "bala-bla-bla"),
+        Film(Categories("Dram"), R.drawable.dom_monstrov,
+                " Dom Monstrov", "2020", "bala-bla-bla"),
+        Film(Categories("Horror"), R.drawable.film_vdova,
+                " Callcenter", "2020", "bala-bla-bla"),
+
+)
+
+
 
 
 

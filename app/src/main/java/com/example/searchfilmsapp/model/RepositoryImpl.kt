@@ -1,17 +1,24 @@
 package com.example.searchfilmsapp.model
 
-import com.example.searchfilmsapp.model.entities.Film
-import com.example.searchfilmsapp.model.entities.getHardCodeFilms
-import com.example.searchfilmsapp.model.interfaces.FilmsLoader
+import android.os.Build
+import androidx.annotation.RequiresApi
+import com.example.searchfilmsapp.model.entities.*
 
 class RepositoryImpl : Repository {
-    override fun getFilmsFromServer(categories: String) : Film {
-        val dto = FilmsLoader.loadFIlm(categories)
-        return Film(
-            name = dto?.results?.original_title,
-            date = dto?.results?.release_date,
-            description = dto?.results?.overview
-        )
-    }
-    override fun getFilmsFromLocalStorage() = getHardCodeFilms()
+    @RequiresApi(Build.VERSION_CODES.N)
+    override fun getFilmsFromServer(categories: String) = Film()
+//        val dto = FilmsLoader.loadFIlm(categories)
+
+//        return Film(
+//            name = dto?.original_title,
+//            date = dto?.release_date,
+//            description = dto?.overview
+//        )
+
+    override fun getHorror() = getHardCodeHorror()
+    override fun getDram() = getHardCodeDram()
+//    override fun getComedy() = getHardCodeComedy()
+    override fun getCategoriesFromLocal() = getHardCategories()
+
+
 }

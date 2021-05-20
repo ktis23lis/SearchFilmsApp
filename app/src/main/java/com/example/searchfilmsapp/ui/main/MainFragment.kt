@@ -15,7 +15,9 @@ import com.example.searchfilmsapp.model.entities.Film
 import com.example.searchfilmsapp.model.interfaces.OnItemViewClickListener
 import com.example.searchfilmsapp.strings_iteractor.StringsInteractorImpl
 import com.example.searchfilmsapp.ui.details.FilmFragment
+import com.example.searchfilmsapp.ui.main.MainViewModel
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.film_fragment.*
 import kotlinx.android.synthetic.main.main_fragment.*
 
 class MainFragment : Fragment() {
@@ -50,7 +52,7 @@ class MainFragment : Fragment() {
     private fun renderData (appState : AppState){
         when(appState){
             is AppState.Success -> {
-//                _binding.loadingLayout.visibility  = View.GONE
+                _binding.loadingLayout.visibility  = View.GONE
                 adapter= CategoriesAdapter(object : OnItemViewClickListener{
                     override fun onItemViewClick(film: Film) {
                         val manager = activity?.supportFragmentManager
@@ -65,15 +67,16 @@ class MainFragment : Fragment() {
                         }
                     }
                 }).apply {
-                    setFilm(appState.filmsData)
+//                    setFilm(appState.filmsData)
+                    setCategories(appState.categoriesData)
                 }
                 recyclerViewList.adapter = adapter
             }
             is AppState.Loading -> {
-//                _binding.loadingLayout.visibility = View.VISIBLE
+                _binding.loadingLayout.visibility = View.VISIBLE
             }
             is AppState.Error -> {
-//                _binding.loadingLayout.visibility = View.GONE
+                _binding.loadingLayout.visibility = View.GONE
                 Snackbar
                     .make(_binding.mainView, getString(R.string.error), Snackbar.LENGTH_LONG)
                     .setAction(getString(R.string.reload)) {viewModel.getFilmsFromLocalStorage()}
