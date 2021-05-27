@@ -1,28 +1,12 @@
 package com.example.searchfilmsapp.ui.details
 
-import android.os.Build
 import android.os.Bundle
-import android.os.Handler
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.example.searchfilmsapp.databinding.FilmFragmentBinding
-import com.example.searchfilmsapp.model.AppState
-import com.example.searchfilmsapp.model.FilmsDTO
 import com.example.searchfilmsapp.model.entities.Film
-import com.google.gson.Gson
-import kotlinx.android.synthetic.main.film_fragment.*
-import kotlinx.android.synthetic.main.main_fragment.*
-import java.io.BufferedReader
-import java.io.InputStreamReader
-import java.net.HttpURLConnection
-import java.net.MalformedURLException
-import java.net.URL
-import java.util.stream.Collectors
 
 @Suppress("NAME_SHADOWING")
 class FilmFragment : Fragment() {

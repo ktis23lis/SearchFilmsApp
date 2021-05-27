@@ -1,12 +1,9 @@
 package com.example.searchfilmsapp.model.interfaces
 
 import android.os.Build
-import android.os.Handler
 import android.util.Log
 import androidx.annotation.RequiresApi
-import androidx.viewbinding.BuildConfig
 import com.example.searchfilmsapp.model.FactDTO
-import com.example.searchfilmsapp.model.FilmsDTO
 import com.google.gson.Gson
 import java.io.BufferedReader
 import java.io.InputStreamReader
@@ -14,7 +11,6 @@ import java.net.HttpURLConnection
 import java.net.MalformedURLException
 import java.net.URL
 import java.util.stream.Collectors
-import javax.net.ssl.HttpsURLConnection
 
 private const val YOUR_API_KEY = "1d8addf97a9886e6124b23d2897be981"
 object FilmsLoader {
