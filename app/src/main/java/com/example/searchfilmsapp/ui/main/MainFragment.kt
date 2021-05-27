@@ -67,7 +67,6 @@ class MainFragment : Fragment() {
                         }
                     }
                 }).apply {
-//                    setFilm(appState.filmsData)
                     setCategories(appState.categoriesData)
                 }
                 recyclerViewList.adapter = adapter

@@ -13,24 +13,15 @@ class MainViewModel(private val liveDataToObserve: MediatorLiveData<AppState> = 
     ViewModel(), LifecycleObserver {
     private val repository: Repository = RepositoryImpl()
     private val lifeCycleLiveData = MutableLiveData<String>()
-
     lateinit var stringsInteractor: StringsInteractor
 
-//    fun getFilm()= getDataFromLocalSource()
-
     fun getLiveData() = liveDataToObserve
-
     fun getFilmsFromLocalStorage() = getDataFromLocalSource()
-
-//    fun getWeatherFromRemoteSource() = getDataFromLocalSource()
-
     fun getData(): LiveData<AppState> {
         getFilmsFromLocalStorage()
         return liveDataToObserve
     }
-
     fun getLifeCycleData() = lifeCycleLiveData
-
     private fun getDataFromLocalSource(){
         liveDataToObserve.value = AppState.Loading
         Thread{
@@ -43,14 +34,5 @@ class MainViewModel(private val liveDataToObserve: MediatorLiveData<AppState> = 
     private fun onViewStart() {
         lifeCycleLiveData.value = stringsInteractor.startStr
     }
-//
-//    fun loadData(categories : String) {
-//        liveDataToObserve.value = AppState.Loading
-//        Thread {
-//            val data = repository.getFilmsFromServer(categories)
-//            liveDataToObserve.postValue(AppState.Success(listOf(data)))
-//        }.start()
-//    }
-
 
  }

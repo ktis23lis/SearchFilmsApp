@@ -5,7 +5,7 @@ import com.example.searchfilmsapp.model.entities.Film
 
 interface Repository {
     fun getFilmsFromServer(categories: String) : Film
-    fun getHorror() : List<Film>
-    fun getDram() : List<Film>
+    fun getHorror() : Array<Film>
+    fun getDram() : Array<Film>
     fun getCategoriesFromLocal() : List<Categories>
 }

@@ -40,7 +40,8 @@ class FilmFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?): Unit =
             with(binding) {
         super.onViewCreated(view, savedInstanceState)
-        arguments?.getParcelable<Film>(BUNDLE_EXTRA)?.let { film ->
+        arguments?.getParcelable<Film>(BUNDLE_EXTRA)?.let {
+            film ->
             film.categories.also { categories ->
                 filmCategories.text = categories.division
             }

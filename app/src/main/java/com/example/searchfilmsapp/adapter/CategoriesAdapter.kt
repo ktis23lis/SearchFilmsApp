@@ -19,7 +19,7 @@ class CategoriesAdapter( var onItemViewClickListener: OnItemViewClickListener) :
 
     private lateinit var binding: ItemListsBinding
     private var categoriesData : List<Categories> = listOf()
-    private val adapter = FilmsAdapter(onItemViewClickListener)
+
 
     fun setCategories(data : List<Categories>){
         categoriesData = data
@@ -33,22 +33,31 @@ class CategoriesAdapter( var onItemViewClickListener: OnItemViewClickListener) :
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) = with (binding) {
         holder.bind2(categoriesData[position])
-        var  filmsData : ArrayList<Film> = arrayListOf()
-        when(position){
-            0->filmsData.addAll(repository.getHorror())
-            1->filmsData.addAll(repository.getDram())
+        val filmsData = ArrayList<Film>()
+        if (position == 0) {
+            val myArray = repository.getDram()
+            for (i in myArray) {
+                filmsData.add(i)
+            }
         }
-        adapter.setListFilm(filmsData)
+        if (position == 1) {
+            val myArray = repository.getHorror()
+            for (i in myArray) {
+                filmsData.add(i)
+            }
+        }
+         val adapter = FilmsAdapter(onItemViewClickListener,filmsData)
+        holder.recyclerView.adapter = adapter
+        adapter.notifyDataSetChanged()
     }
 
-    override fun getItemCount(): Int {
-        return categoriesData.size
-    }
+    override fun getItemCount(): Int = categoriesData.size
 
     inner class CategoryViewHolder (itemView : View): RecyclerView.ViewHolder(itemView) {
+        val recyclerView : RecyclerView = itemView.findViewById(R.id.recyclerFilmsViewList)
         fun bind2(categories: Categories)  = with (binding){
             categoriesTextView.text = categories.division
-            recyclerFilmsViewList.adapter = adapter
+
 
         }
     }
